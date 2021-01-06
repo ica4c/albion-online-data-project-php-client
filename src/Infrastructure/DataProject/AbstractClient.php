@@ -12,7 +12,7 @@ abstract class AbstractClient
     protected $httpClient;
 
     /**
-     * AbstractGamestatsClient constructor.
+     * AbstractClient constructor.
      */
     public function __construct()
     {
