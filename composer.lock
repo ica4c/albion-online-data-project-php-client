@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d39973b8620e702e9846d4402c3c8432",
+    "content-hash": "e959056cc7f5f265cabf9f0deae20392",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -329,6 +329,56 @@
             ],
             "description": "A polyfill for getallheaders.",
             "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "solid/foundation",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sldstudio/foundation.git",
+                "reference": "3db906cdf3d409249d36bb60a06db9d703c7a1c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sldstudio/foundation/zipball/3db906cdf3d409249d36bb60a06db9d703c7a1c2",
+                "reference": "3db906cdf3d409249d36bb60a06db9d703c7a1c2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-reflection": "*",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Solid\\Foundation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ruslan Gataullin",
+                    "email": "ruslan@solid.studio"
+                }
+            ],
+            "description": "Shareable classes and traits useful for any PHP project",
+            "keywords": [
+                "base",
+                "enum",
+                "foundation",
+                "tools"
+            ],
+            "support": {
+                "issues": "https://github.com/sldstudio/foundation/issues",
+                "source": "https://github.com/sldstudio/foundation/tree/0.1.0"
+            },
+            "time": "2021-01-05T21:30:01+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -2382,5 +2432,6 @@
         "php": ">=7.1.3",
         "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
