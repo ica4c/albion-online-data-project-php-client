@@ -2,9 +2,9 @@
 
 namespace Albion\OnlineDataProject\Domain;
 
-use Albion\OnlineDataProject\Foundation\DataTypes\Enumerable;
+use Solid\Foundation\Enum;
 
-class ItemQuality extends Enumerable
+class ItemQuality extends Enum
 {
     const NORMAL = 1;
     const GOOD = 2;

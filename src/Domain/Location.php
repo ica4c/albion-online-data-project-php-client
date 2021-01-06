@@ -2,9 +2,9 @@
 
 namespace Albion\OnlineDataProject\Domain;
 
-use Albion\OnlineDataProject\Foundation\DataTypes\Enumerable;
+use Solid\Foundation\Enum;
 
-class Location extends Enumerable
+class Location extends Enum
 {
     const CAERLEON = 'Caerleon';
     const BRIDGEWATCH = 'Bridgewatch';
