@@ -27,7 +27,6 @@ class GoldPriceTest extends GuzzleTestCase
         );
 
         self::assertIsArray($prices);
-        self::assertNotEmpty($prices);
     }
 
     public function testFetchLatestGoldPrice(): void
@@ -37,7 +36,6 @@ class GoldPriceTest extends GuzzleTestCase
         );
 
         self::assertIsArray($prices);
-        self::assertNotEmpty($prices);
     }
 
     public function testFetchLatestGoldPriceForDate(): void
@@ -50,7 +48,6 @@ class GoldPriceTest extends GuzzleTestCase
         );
 
         self::assertIsArray($prices);
-        self::assertNotEmpty($prices);
     }
 
     public function testFetchGoldPrices(): void
@@ -60,6 +57,5 @@ class GoldPriceTest extends GuzzleTestCase
         );
 
         self::assertIsArray($prices);
-        self::assertNotEmpty($prices);
     }
 }

@@ -25,7 +25,6 @@ class ItemPriceTest extends GuzzleTestCase
         $prices = $this->awaitPromise($this->client->fetchActivePrices(['T7_BAG', 'T8_BAG']));
 
         self::assertIsArray($prices);
-        self::assertNotEmpty($prices);
     }
 
     public function testItemHistoricalPrices(): void
@@ -33,7 +32,6 @@ class ItemPriceTest extends GuzzleTestCase
         $prices = $this->awaitPromise($this->client->fetchSellOrderHistory('T7_BAG'));
 
         self::assertIsArray($prices);
-        self::assertNotEmpty($prices);
     }
 
     public function testItemYesterdayPrices(): void
@@ -46,6 +44,5 @@ class ItemPriceTest extends GuzzleTestCase
         );
 
         self::assertIsArray($prices);
-        self::assertNotEmpty($prices);
     }
 }
