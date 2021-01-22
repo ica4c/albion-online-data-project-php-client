@@ -5,6 +5,7 @@ namespace Tests;
 use Albion\OnlineDataProject\Infrastructure\DataProject\GoldPriceClient;
 use DateInterval;
 use DateTime;
+use GuzzleHttp\Client;
 
 class GoldPriceTest extends GuzzleTestCase
 {
@@ -17,7 +18,9 @@ class GoldPriceTest extends GuzzleTestCase
     public function __construct()
     {
         parent::__construct();
-        $this->goldPriceClient = new GoldPriceClient();
+        $this->goldPriceClient = new GoldPriceClient(
+            new Client(['timeout' => 30])
+        );
     }
 
     public function testFetchTodayGoldPrices(): void

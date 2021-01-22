@@ -13,11 +13,11 @@ abstract class AbstractClient
 
     /**
      * AbstractClient constructor.
+     *
+     * @param \GuzzleHttp\Client $httpBackend
      */
-    public function __construct()
+    public function __construct(Client $httpBackend)
     {
-        $this->httpClient = new Client([
-            'base_uri' => 'https://www.albion-online-data.com/api/v2/'
-        ]);
+        $this->httpClient = $httpBackend;
     }
 }

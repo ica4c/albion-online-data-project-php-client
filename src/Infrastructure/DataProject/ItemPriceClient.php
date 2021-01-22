@@ -4,11 +4,9 @@ namespace Albion\OnlineDataProject\Infrastructure\DataProject;
 
 use Albion\OnlineDataProject\Infrastructure\DataProject\Exceptions\FailedToFetchPriceDataException;
 use DateTime;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
-use Iterator;
 
 class ItemPriceClient extends AbstractClient
 {
@@ -34,7 +32,7 @@ class ItemPriceClient extends AbstractClient
         }
 
         return $this->httpClient->getAsync(
-            sprintf('stats/prices/%s', implode(',', $itemIds)),
+            sprintf('https://www.albion-online-data.com/api/v2/stats/prices/%s', implode(',', $itemIds)),
             ['query' => $query]
         )
             ->otherwise(
@@ -81,7 +79,7 @@ class ItemPriceClient extends AbstractClient
         }
 
         return $this->httpClient->getAsync(
-            "stats/history/${itemId}",
+            "https://www.albion-online-data.com/api/v2/stats/history/${itemId}",
             ['query' => $query]
         )
             ->otherwise(

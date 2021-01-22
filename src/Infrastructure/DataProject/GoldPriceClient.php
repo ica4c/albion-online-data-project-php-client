@@ -32,7 +32,7 @@ class GoldPriceClient extends AbstractClient
         }
 
         return $this->httpClient->getAsync(
-            "stats/gold",
+            "https://www.albion-online-data.com/api/v2/stats/gold",
             ['query' => $query]
         )
             ->otherwise(
