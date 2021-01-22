@@ -5,6 +5,7 @@ namespace Tests;
 use Albion\OnlineDataProject\Infrastructure\DataProject\ItemPriceClient;
 use DateInterval;
 use DateTime;
+use GuzzleHttp\Client;
 
 class ItemPriceTest extends GuzzleTestCase
 {
@@ -17,7 +18,10 @@ class ItemPriceTest extends GuzzleTestCase
     public function __construct()
     {
         parent::__construct();
-        $this->client = new ItemPriceClient();
+
+        $this->client = new ItemPriceClient(
+            new Client(['timeout' => 30])
+        );
     }
 
     public function testItemActivePrice(): void
