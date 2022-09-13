@@ -24,7 +24,7 @@ class GoldPriceClient extends AbstractClient
         $query = [];
 
         if($date) {
-            $query['date'] = $date->format('d-m-Y');
+            $query['date'] = $date->format('Y-m-d');
         }
 
         if($count) {
