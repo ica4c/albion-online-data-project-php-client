@@ -12,16 +12,15 @@ class GoldPriceTest extends GuzzleTestCase
     /** @var \Albion\OnlineDataProject\Infrastructure\DataProject\GoldPriceClient */
     protected $goldPriceClient;
 
-    /**
-     * GoldPriceTest constructor.
-     */
-    public function __construct()
+    protected function setUp(): void
     {
-        parent::__construct();
+        parent::setUp();
+
         $this->goldPriceClient = new GoldPriceClient(
             new Client(['timeout' => 30])
         );
     }
+
 
     public function testFetchTodayGoldPrices(): void
     {

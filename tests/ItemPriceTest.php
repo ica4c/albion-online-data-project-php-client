@@ -12,12 +12,9 @@ class ItemPriceTest extends GuzzleTestCase
     /** @var \Albion\OnlineDataProject\Infrastructure\DataProject\ItemPriceClient */
     protected $client;
 
-    /**
-     * ItemPriceTest constructor.
-     */
-    public function __construct()
+    protected function setUp(): void
     {
-        parent::__construct();
+        parent::setUp();
 
         $this->client = new ItemPriceClient(
             new Client(['timeout' => 30])
