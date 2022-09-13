@@ -67,7 +67,7 @@ class ItemPriceClient extends AbstractClient
         ];
 
         if($date) {
-            $query['date'] = $date->format('d-m-Y');
+            $query['date'] = $date->format('Y-m-d');
         }
 
         if($locations) {
