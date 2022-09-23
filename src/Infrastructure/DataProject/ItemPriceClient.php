@@ -50,7 +50,7 @@ class ItemPriceClient extends AbstractClient
     /**
      * @param string         $itemId
      * @param \DateTime|null $date
-     * @param \Albion\OnlineDataProject\Domain\Location[]|null     $locations
+     * @param \Albion\OnlineDataProject\Domain\Markets[]|null     $locations
      * @param \Albion\OnlineDataProject\Domain\ItemQuality[]|null     $quality
      * @param int            $timeScale
      *
