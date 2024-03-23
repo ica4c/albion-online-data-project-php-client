@@ -18,11 +18,16 @@
 ###### Example
 
 ```
-use Albion\OnlineDataProject\Infrastructure\DataProject\ItemPriceClient;
 use Albion\OnlineDataProject\Domain\Location;
 use Albion\OnlineDataProject\Domain\ItemQuality;
+use Albion\OnlineDataProject\Infrastructure\DataProject\ItemPriceClient;
+use Albion\OnlineDataProject\Infrastructure\DataProject\Factories\HttpClientFactory;
  
-$client = new ItemPriceClient();
+$realm = Realm::of(Realm::WEST); 
+
+$client = new ItemPriceClient(
+    HttpClientFactory::makeByRealm($realm)
+);
 
 // Fetch last known price for t8 shield masterpiece quality in Bridgewatch
 try {
@@ -62,11 +67,16 @@ try {
 ###### Example
 
 ```
-use Albion\OnlineDataProject\Infrastructure\DataProject\ItemPriceClient;
 use Albion\OnlineDataProject\Domain\Location;
 use Albion\OnlineDataProject\Domain\ItemQuality;
+use Albion\OnlineDataProject\Infrastructure\DataProject\ItemPriceClient;
+use Albion\OnlineDataProject\Infrastructure\DataProject\Factories\HttpClientFactory;
  
-$client = new ItemPriceClient();
+$realm = Realm::of(Realm::WEST); 
+
+$client = new ItemPriceClient(
+    HttpClientFactory::makeByRealm($realm)
+);
 
 // Fetch hour price spots for t8 shield masterpiece quality in Bridgewatch and Thetford 5 days ago
 try {

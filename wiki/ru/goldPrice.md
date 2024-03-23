@@ -17,9 +17,15 @@
 ###### Пример
 
 ```
+use Albion\OnlineDataProject\Domain\Realm;
+use Albion\OnlineDataProject\Infrastructure\DataProject\Factories\HttpClientFactory;
 use Albion\OnlineDataProject\Infrastructure\DataProject\GoldPriceClient;
  
-$client = new GoldPriceClient();
+$realm = Realm::of(Realm::WEST);
+ 
+$client = new GoldPriceClient(
+    HttpClientFactory::makeByRealm($realm)
+);
 
 // Загрузить последние 10 спотов
 try {

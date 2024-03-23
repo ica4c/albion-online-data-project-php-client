@@ -9,18 +9,22 @@ use DateTime;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
+use Throwable;
 
 class GoldPriceClient extends AbstractClient
 {
+    protected const ENDPOINT_GOLD_PRICE = 'api/v2/stats/gold';
+
     /**
      * @param \DateTime|null $date
      * @param int|null       $count
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function fetchSellOrderHistory(DateTime $date = null,
-                                          int $count = null): PromiseInterface
-    {
+    public function fetchSellOrderHistory(
+        DateTime $date = null,
+        int $count = null
+    ): PromiseInterface {
         $query = [];
 
         if($date) {
@@ -32,11 +36,11 @@ class GoldPriceClient extends AbstractClient
         }
 
         return $this->httpClient->getAsync(
-            "https://www.albion-online-data.com/api/v2/stats/gold",
+            self::ENDPOINT_GOLD_PRICE,
             ['query' => $query]
         )
             ->otherwise(
-                static function(RequestException $reason) {
+                static function(Throwable $reason) {
                     throw new FailedToFetchPriceDataException($reason);
                 }
             )
