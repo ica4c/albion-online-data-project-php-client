@@ -2,61 +2,63 @@
 
 namespace Tests;
 
+use Albion\OnlineDataProject\Domain\Realm;
+use Albion\OnlineDataProject\Infrastructure\DataProject\Factories\HttpClientFactory;
 use Albion\OnlineDataProject\Infrastructure\DataProject\GoldPriceClient;
 use DateInterval;
 use DateTime;
-use GuzzleHttp\Client;
+use PHPUnit\Framework\TestCase;
+use Solid\Foundation\Exceptions\InvalidEnumValueException;
 
-class GoldPriceTest extends GuzzleTestCase
+class GoldPriceTest extends TestCase
 {
-    /** @var \Albion\OnlineDataProject\Infrastructure\DataProject\GoldPriceClient */
-    protected $goldPriceClient;
-
-    protected function setUp(): void
+    public function clientDataProvider(): array
     {
-        parent::setUp();
-
-        $this->goldPriceClient = new GoldPriceClient(
-            new Client(['timeout' => 30])
-        );
-    }
-
-
-    public function testFetchTodayGoldPrices(): void
-    {
-        $prices = $this->awaitPromise(
-            $this->goldPriceClient->fetchSellOrderHistory(new DateTime)
-        );
-
-        self::assertIsArray($prices);
-    }
-
-    public function testFetchLatestGoldPrice(): void
-    {
-        $prices = $this->awaitPromise(
-            $this->goldPriceClient->fetchSellOrderHistory(null, 1)
-        );
-
-        self::assertIsArray($prices);
-    }
-
-    public function testFetchLatestGoldPriceForDate(): void
-    {
-        $prices = $this->awaitPromise(
-            $this->goldPriceClient->fetchSellOrderHistory(
-                (new DateTime)->sub(new DateInterval('P1D')),
+        return [
+            [
+                Realm::WEST,
+                null,
                 1
+            ],
+            [
+                Realm::WEST,
+                (new DateTime())->sub(new DateInterval('P1D')),
+                1
+            ],
+            [
+                Realm::EAST,
+                null,
+                1
+            ],
+            [
+                Realm::EAST,
+                (new DateTime())->sub(new DateInterval('P1D')),
+                1
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider clientDataProvider
+     *
+     * @param string $realm
+     * @param DateTime|null $forDate
+     * @param int $count
+     *
+     * @return void
+     *
+     * @throws InvalidEnumValueException
+     */
+    public function testFetchGoldPrices(string $realm, ?DateTime $forDate, int $count): void
+    {
+        $client = new GoldPriceClient(
+            HttpClientFactory::makeByRealm(
+                Realm::of($realm)
             )
         );
 
-        self::assertIsArray($prices);
-    }
-
-    public function testFetchGoldPrices(): void
-    {
-        $prices = $this->awaitPromise(
-            $this->goldPriceClient->fetchSellOrderHistory()
-        );
+        $prices = $client->fetchSellOrderHistory($forDate, $count)
+            ->wait();
 
         self::assertIsArray($prices);
     }

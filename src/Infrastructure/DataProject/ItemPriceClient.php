@@ -4,12 +4,17 @@ namespace Albion\OnlineDataProject\Infrastructure\DataProject;
 
 use Albion\OnlineDataProject\Infrastructure\DataProject\Exceptions\FailedToFetchPriceDataException;
 use DateTime;
+use Exception;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
+use Throwable;
 
 class ItemPriceClient extends AbstractClient
 {
+    protected const ITEM_PRICE_ENDPOINT = "api/v2/stats/prices";
+    protected const ITEM_PRICE_HISTORY_ENDPOINT = 'api/v2/stats/history';
+
     /**
      * @param string[]   $itemIds
      * @param array|null $locations
@@ -17,10 +22,11 @@ class ItemPriceClient extends AbstractClient
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function fetchActivePrices(array $itemIds,
-                                      array $locations = null,
-                                      array $quality = null): PromiseInterface
-    {
+    public function fetchActivePrices(
+        array $itemIds,
+        array $locations = null,
+        array $quality = null
+    ): PromiseInterface {
         $query = [];
 
         if($locations) {
@@ -32,7 +38,7 @@ class ItemPriceClient extends AbstractClient
         }
 
         return $this->httpClient->getAsync(
-            sprintf('https://www.albion-online-data.com/api/v2/stats/prices/%s', implode(',', $itemIds)),
+            sprintf('%s/%s', self::ITEM_PRICE_ENDPOINT, implode(',', $itemIds)),
             ['query' => $query]
         )
             ->otherwise(
@@ -56,12 +62,13 @@ class ItemPriceClient extends AbstractClient
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function fetchSellOrderHistory(string $itemId,
-                                          DateTime $date = null,
-                                          array $locations = null,
-                                          array $quality = null,
-                                          int $timeScale = 1): PromiseInterface
-    {
+    public function fetchSellOrderHistory(
+        string $itemId,
+        DateTime $date = null,
+        array $locations = null,
+        array $quality = null,
+        int $timeScale = 1
+    ): PromiseInterface {
         $query = [
             'time-scale' => $timeScale
         ];
@@ -79,11 +86,11 @@ class ItemPriceClient extends AbstractClient
         }
 
         return $this->httpClient->getAsync(
-            "https://www.albion-online-data.com/api/v2/stats/history/${itemId}",
+            self::ITEM_PRICE_HISTORY_ENDPOINT . "/${itemId}",
             ['query' => $query]
         )
             ->otherwise(
-                static function(RequestException $reason) {
+                static function(Throwable $reason) {
                     throw new FailedToFetchPriceDataException($reason);
                 }
             )

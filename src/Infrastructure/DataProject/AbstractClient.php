@@ -6,10 +6,7 @@ use GuzzleHttp\Client;
 
 abstract class AbstractClient
 {
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    protected $httpClient;
+    protected Client $httpClient;
 
     /**
      * AbstractClient constructor.
