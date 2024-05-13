@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Albion\OnlineDataProject\Domain;
 
-use Solid\Foundation\Enum;
-
-class Realm extends Enum
+enum Realm: string
 {
-    public const WEST = 'west';
-    public const EAST = 'east';
+    case WEST = 'west';
+    case EAST = 'east';
+    case AMERICAS = 'americas';
+    case ASIA = 'asia';
+    case EUROPE = 'europe';
 }

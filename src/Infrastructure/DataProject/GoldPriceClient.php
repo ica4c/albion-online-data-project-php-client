@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Albion\OnlineDataProject\Infrastructure\DataProject;
 
-
+use Albion\OnlineDataProject\Domain\Realm;
 use Albion\OnlineDataProject\Infrastructure\DataProject\Exceptions\FailedToFetchPriceDataException;
 use DateTime;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use Throwable;
@@ -15,13 +15,8 @@ class GoldPriceClient extends AbstractClient
 {
     protected const ENDPOINT_GOLD_PRICE = 'api/v2/stats/gold';
 
-    /**
-     * @param \DateTime|null $date
-     * @param int|null       $count
-     *
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
     public function fetchSellOrderHistory(
+        Realm $realm,
         DateTime $date = null,
         int $count = null
     ): PromiseInterface {
@@ -36,11 +31,11 @@ class GoldPriceClient extends AbstractClient
         }
 
         return $this->httpClient->getAsync(
-            self::ENDPOINT_GOLD_PRICE,
+            $this->endpointUrl($realm, self::ENDPOINT_GOLD_PRICE),
             ['query' => $query]
         )
             ->otherwise(
-                static function(Throwable $reason) {
+                static function (Throwable $reason) {
                     throw new FailedToFetchPriceDataException($reason);
                 }
             )

@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Albion\OnlineDataProject\Domain\Realm;
-use Albion\OnlineDataProject\Infrastructure\DataProject\Factories\HttpClientFactory;
 use Albion\OnlineDataProject\Infrastructure\DataProject\GoldPriceClient;
 use DateInterval;
 use DateTime;
-use PHPUnit\Framework\TestCase;
-use Solid\Foundation\Exceptions\InvalidEnumValueException;
 
-class GoldPriceTest extends TestCase
+class GoldPriceTest extends MockedClientTestCase
 {
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     public function clientDataProvider(): array
     {
         return [
@@ -34,6 +36,16 @@ class GoldPriceTest extends TestCase
                 Realm::EAST,
                 (new DateTime())->sub(new DateInterval('P1D')),
                 1
+            ],
+            [
+                Realm::EUROPE,
+                null,
+                1
+            ],
+            [
+                Realm::EUROPE,
+                (new DateTime())->sub(new DateInterval('P1D')),
+                1
             ]
         ];
     }
@@ -41,23 +53,21 @@ class GoldPriceTest extends TestCase
     /**
      * @dataProvider clientDataProvider
      *
-     * @param string $realm
+     * @param Realm $realm
      * @param DateTime|null $forDate
      * @param int $count
      *
      * @return void
      *
-     * @throws InvalidEnumValueException
+     * @throws \JsonException
      */
-    public function testFetchGoldPrices(string $realm, ?DateTime $forDate, int $count): void
+    public function testFetchGoldPrices(Realm $realm, ?DateTime $forDate, int $count): void
     {
         $client = new GoldPriceClient(
-            HttpClientFactory::makeByRealm(
-                Realm::of($realm)
-            )
+            $this->mockClient($this->loadResponseSamplesFromSamplesJson('gold_200_responses.json'))
         );
 
-        $prices = $client->fetchSellOrderHistory($forDate, $count)
+        $prices = $client->fetchSellOrderHistory($realm, $forDate, $count)
             ->wait();
 
         self::assertIsArray($prices);
