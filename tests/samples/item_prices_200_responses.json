@@ -1,0 +1,56 @@
+[
+  [
+    {
+      "item_id": "T4_BAG",
+      "city": "Bridgewatch",
+      "quality": 2,
+      "sell_price_min": 2156,
+      "sell_price_min_date": "2024-05-13T02:40:00",
+      "sell_price_max": 2165,
+      "sell_price_max_date": "2024-05-13T02:40:00",
+      "buy_price_min": 0,
+      "buy_price_min_date": "0001-01-01T00:00:00",
+      "buy_price_max": 0,
+      "buy_price_max_date": "0001-01-01T00:00:00"
+    },
+    {
+      "item_id": "T4_BAG",
+      "city": "Caerleon",
+      "quality": 2,
+      "sell_price_min": 3193,
+      "sell_price_min_date": "2024-05-13T05:05:00",
+      "sell_price_max": 3198,
+      "sell_price_max_date": "2024-05-13T05:05:00",
+      "buy_price_min": 2340,
+      "buy_price_min_date": "2024-05-13T02:20:00",
+      "buy_price_max": 2340,
+      "buy_price_max_date": "2024-05-13T02:20:00"
+    },
+    {
+      "item_id": "T5_BAG",
+      "city": "Bridgewatch",
+      "quality": 2,
+      "sell_price_min": 9928,
+      "sell_price_min_date": "2024-05-13T04:00:00",
+      "sell_price_max": 10213,
+      "sell_price_max_date": "2024-05-13T04:00:00",
+      "buy_price_min": 1,
+      "buy_price_min_date": "2024-05-12T20:00:00",
+      "buy_price_max": 8105,
+      "buy_price_max_date": "2024-05-12T20:00:00"
+    },
+    {
+      "item_id": "T5_BAG",
+      "city": "Caerleon",
+      "quality": 2,
+      "sell_price_min": 14697,
+      "sell_price_min_date": "2024-05-13T03:15:00",
+      "sell_price_max": 14735,
+      "sell_price_max_date": "2024-05-13T03:15:00",
+      "buy_price_min": 9564,
+      "buy_price_min_date": "2024-05-12T21:45:00",
+      "buy_price_max": 10548,
+      "buy_price_max_date": "2024-05-12T21:45:00"
+    }
+  ]
+]

@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Albion\OnlineDataProject\Infrastructure\DataProject;
 
+use Albion\OnlineDataProject\Domain\ItemQuality;
+use Albion\OnlineDataProject\Domain\Markets;
+use Albion\OnlineDataProject\Domain\Realm;
 use Albion\OnlineDataProject\Infrastructure\DataProject\Exceptions\FailedToFetchPriceDataException;
 use DateTime;
-use Exception;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
@@ -16,33 +20,50 @@ class ItemPriceClient extends AbstractClient
     protected const ITEM_PRICE_HISTORY_ENDPOINT = 'api/v2/stats/history';
 
     /**
-     * @param string[]   $itemIds
-     * @param array|null $locations
-     * @param array|null $quality
+     * @param Realm $realm
+     * @param array<array-key, string> $itemIds
+     * @param array<array-key, Markets>|null $locations
+     * @param array<array-key, ItemQuality>|null $qualities
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function fetchActivePrices(
+        Realm $realm,
         array $itemIds,
         array $locations = null,
-        array $quality = null
+        array $qualities = null
     ): PromiseInterface {
         $query = [];
 
         if($locations) {
-            $query['locations'] = implode(',', $locations);
+            $query['locations'] = implode(
+                ',',
+                array_map(
+                    static fn (Markets $market) => $market->value,
+                    $locations
+                )
+            );
         }
 
-        if($quality) {
-            $query['qualities'] = implode(',', $quality);
+        if($qualities) {
+            $query['qualities'] = implode(
+                ',',
+                array_map(
+                    static fn (ItemQuality $quality) => $quality->value,
+                    $qualities
+                )
+            );
         }
 
         return $this->httpClient->getAsync(
-            sprintf('%s/%s', self::ITEM_PRICE_ENDPOINT, implode(',', $itemIds)),
+            $this->endpointUrl(
+                $realm,
+                sprintf('%s/%s', self::ITEM_PRICE_ENDPOINT, implode(',', $itemIds))
+            ),
             ['query' => $query]
         )
             ->otherwise(
-                static function(RequestException $reason) {
+                static function (RequestException $reason) {
                     throw new FailedToFetchPriceDataException($reason);
                 }
             )
@@ -54,19 +75,21 @@ class ItemPriceClient extends AbstractClient
     }
 
     /**
-     * @param string         $itemId
-     * @param \DateTime|null $date
-     * @param \Albion\OnlineDataProject\Domain\Markets[]|null     $locations
-     * @param \Albion\OnlineDataProject\Domain\ItemQuality[]|null     $quality
-     * @param int            $timeScale
+     * @param Realm $realm
+     * @param string $itemId
+     * @param DateTime|null $date
+     * @param array<array-key, Markets>|null $locations
+     * @param array<array-key, ItemQuality>|null $qualities
+     * @param int $timeScale
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function fetchSellOrderHistory(
+        Realm $realm,
         string $itemId,
         DateTime $date = null,
         array $locations = null,
-        array $quality = null,
+        array $qualities = null,
         int $timeScale = 1
     ): PromiseInterface {
         $query = [
@@ -77,20 +100,35 @@ class ItemPriceClient extends AbstractClient
             $query['date'] = $date->format('Y-m-d');
         }
 
-        if($locations) {
-            $query['locations'] = implode(',', $locations);
+        if ($locations) {
+            $query['locations'] = implode(
+                ',',
+                array_map(
+                    static fn (Markets $market) => $market->value,
+                    $locations
+                )
+            );
         }
 
-        if($quality) {
-            $query['quality'] = implode(',', $quality);
+        if ($qualities) {
+            $query['quality'] = implode(
+                ',',
+                array_map(
+                    static fn (ItemQuality $quality) => $quality->value,
+                    $qualities
+                )
+            );
         }
 
         return $this->httpClient->getAsync(
-            self::ITEM_PRICE_HISTORY_ENDPOINT . "/${itemId}",
+            $this->endpointUrl(
+                $realm,
+                self::ITEM_PRICE_HISTORY_ENDPOINT . "/" . $itemId,
+            ),
             ['query' => $query]
         )
             ->otherwise(
-                static function(Throwable $reason) {
+                static function (Throwable $reason) {
                     throw new FailedToFetchPriceDataException($reason);
                 }
             )
