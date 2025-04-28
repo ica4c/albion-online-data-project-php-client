@@ -32,7 +32,7 @@ enum SmugglersNetworkMarkets: string
     case RUNNELVEIN_SINK_SMUGGLERS_NETWORK = 'Runnelvein Sink Smugglers Network';
     case SCUTTLE_SINK_MARSH_SMUGGLERS_NETWORK = 'Scuttle Sink Marsh Smugglers Network';
     case SLAKESANDS_MESA_SMUGGLERS_NETWORK = 'Slakesands Mesa Smugglers Network';
-    case SPRINGSUMP_BASIN_SMUGGLERS_NETWORK= 'Springsump Basin Smugglers Network';
+    case SPRINGSUMP_BASIN_SMUGGLERS_NETWORK = 'Springsump Basin Smugglers Network';
     case SUNFANG_RAVINE_SMUGGLERS_NETWORK = 'Sunfang Ravine Smugglers Network';
     case SUNFANG_WASTELAND_SMUGGLERS_NETWORK = 'Sunfang Wasteland Smugglers Network';
     case SUNKENBOUGH_WOODS_SMUGGLERS_NETWORK = 'Sunkenbough Woods Smugglers Network';
