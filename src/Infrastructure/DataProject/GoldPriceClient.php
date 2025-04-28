@@ -32,7 +32,10 @@ class GoldPriceClient extends AbstractClient
 
         return $this->httpClient->getAsync(
             $this->endpointUrl($realm, self::ENDPOINT_GOLD_PRICE),
-            ['query' => $query]
+            [
+                'query' => $query,
+                'decode_content' => 'gzip'
+            ]
         )
             ->otherwise(
                 static function (Throwable $reason) {

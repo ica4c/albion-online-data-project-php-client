@@ -36,10 +36,10 @@ try {
             'T8_SHIELD'
         ], 
         [
-            Location::of(Location::BRIDGEWATCH)
+            Location::BRIDGEWATCH
         ],
         [
-            ItemQuality::of(ItemQuality::MASTERPIECE)
+            ItemQuality::MASTERPIECE
         ]
     )->wait();
 
@@ -84,8 +84,8 @@ try {
         'T8_SHIELD',
         new \DateTime()->sub(new \DateInterval('P5D')) ,
         [
-            Location::of(Location::BRIDGEWATCH),
-            Location::of(Location::THETFORD)
+            Location::BRIDGEWATCH,
+            Location::THETFORD
         ],
         [
             ItemQuality::of(ItemQuality::MASTERPIECE)
