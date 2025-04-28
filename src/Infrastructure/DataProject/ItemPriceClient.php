@@ -40,7 +40,7 @@ class ItemPriceClient extends AbstractClient
             $query['locations'] = implode(
                 ',',
                 array_map(
-                    static fn (Markets $market) => $market->value,
+                    static fn (Markets|SmugglersNetworkMarkets $market) => $market->value,
                     $locations
                 )
             );
