@@ -11,7 +11,7 @@ enum Markets: string
     case CAERLEON = 'Caerleon';
     case BRIDGEWATCH = 'Bridgewatch';
     case BRIDGEWATCH_PORTAL = 'Bridgewatch Portal';
-    case FORT_STERLING = 'FortSterling';
+    case FORT_STERLING = 'Fort Sterling';
     case FORT_STERLING_PORTAL = 'Fort Sterling Portal';
     case THETFORD = 'Thetford';
     case THETFORD_PORTAL = 'Thetford Portal';
