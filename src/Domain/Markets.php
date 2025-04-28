@@ -6,6 +6,7 @@ namespace Albion\OnlineDataProject\Domain;
 
 enum Markets: string
 {
+    case UNKNOWN = "0";
     case BLACK_MARKET = 'Black Market';
     case CAERLEON = 'Caerleon';
     case BRIDGEWATCH = 'Bridgewatch';
@@ -20,5 +21,7 @@ enum Markets: string
     case LYMHURST_PORTAL = 'Lymhurst Portal';
     case MORGANAS_REST = 'Morganas Rest';
     case ARTHURS_REST = 'Arthurs Rest';
-    case MERLINS_REST = 'Merlins Rest';
+    case MERLYNS_REST = 'Merlyns Rest';
+    case BRECILIEN = 'Brecilien';
+    case SMUGGLERS_NETWORK = 'Smugglers Network';
 }

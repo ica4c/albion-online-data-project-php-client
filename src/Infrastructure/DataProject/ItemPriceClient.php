@@ -7,6 +7,7 @@ namespace Albion\OnlineDataProject\Infrastructure\DataProject;
 use Albion\OnlineDataProject\Domain\ItemQuality;
 use Albion\OnlineDataProject\Domain\Markets;
 use Albion\OnlineDataProject\Domain\Realm;
+use Albion\OnlineDataProject\Domain\SmugglersNetworkMarkets;
 use Albion\OnlineDataProject\Infrastructure\DataProject\Exceptions\FailedToFetchPriceDataException;
 use DateTime;
 use GuzzleHttp\Exception\RequestException;
@@ -22,7 +23,7 @@ class ItemPriceClient extends AbstractClient
     /**
      * @param Realm $realm
      * @param array<array-key, string> $itemIds
-     * @param array<array-key, Markets>|null $locations
+     * @param array<array-key, Markets|SmugglersNetworkMarkets>|null $locations
      * @param array<array-key, ItemQuality>|null $qualities
      *
      * @return PromiseInterface
@@ -39,7 +40,7 @@ class ItemPriceClient extends AbstractClient
             $query['locations'] = implode(
                 ',',
                 array_map(
-                    static fn (Markets $market) => $market->value,
+                    static fn (Markets|SmugglersNetworkMarkets $market) => $market->value,
                     $locations
                 )
             );
@@ -60,7 +61,10 @@ class ItemPriceClient extends AbstractClient
                 $realm,
                 sprintf('%s/%s', self::ITEM_PRICE_ENDPOINT, implode(',', $itemIds))
             ),
-            ['query' => $query]
+            [
+                'query' => $query,
+                'decode_content' => 'gzip'
+            ]
         )
             ->otherwise(
                 static function (RequestException $reason) {
